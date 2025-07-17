@@ -8,4 +8,4 @@ SELECT
     TO_VARCHAR(TO_CHAR(DATE, 'MONTH')) AS month_name
 FROM {{ ref('bronze_calendar') }}
 WHERE DATE IS NOT NULL
-QUALIFY ROW_NUMBER() OVER (PARTITION BY DATE) = 1  -- Remove duplicate dates if any
+QUALIFY ROW_NUMBER() OVER (PARTITION BY DATE ORDER BY DATE) = 1  -- Remove duplicate dates if any
