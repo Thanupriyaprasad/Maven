@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: MAVENDB
+    database: MAVENDB
+    schema: PUBLIC  # Change this if your tables are in a different schema
+    tables:
+      - name: calendar
+      - name: dictionary
+      - name: inventory
+      - name: products
+      - name: sales
+      - name: stores
