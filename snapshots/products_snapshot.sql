@@ -13,5 +13,5 @@ SELECT
     product_category,
     product_cost,
     product_price
-FROM {{ source('MAVENDB', 'PRODUCTS') }}
+FROM {{ source('MAVENDB', 'products') }}
 {% endsnapshot %}
