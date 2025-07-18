@@ -11,3 +11,33 @@ sources:
       - name: products
       - name: sales
       - name: stores
+
+
+
+models:
+  - name: silver_products
+    description: "Deduplicated and enriched products data with profit calculation"
+    columns:
+      - name: product_id
+        description: "Unique identifier for each product"
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "Product name"
+        tests:
+          - not_null
+      - name: product_category
+        description: "Product category"
+        tests:
+          - not_null
+      - name: product_cost
+        description: "Cost of the product"
+        tests:
+          - not_null
+      - name: product_price
+        description: "Selling price of the product"
+        tests:
+          - not_null
+      - name: product_profit
+        description: "Profit per product (price - cost)"     
