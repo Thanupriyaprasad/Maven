@@ -5,7 +5,7 @@ with cleaned as (
         cast(store_id as integer) as store_id,
         cast(product_id as integer) as product_id,
         cast(units as integer) as units
-    from {{ source('MAVENDB', 'SALES') }}
+    from {{ source('MAVENDB', 'sales') }}
     where sale_id is not null
       and date is not null
       and store_id is not null

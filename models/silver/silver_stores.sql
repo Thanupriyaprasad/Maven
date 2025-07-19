@@ -5,7 +5,7 @@ with cleaned as (
         trim(store_city) as store_city,
         trim(store_location) as store_location,
         try_cast(store_open_date as date) as store_open_date
-    from {{ source('MAVENDB', 'STORES') }}
+    from {{ source('MAVENDB', 'stores') }}
     where store_id is not null
       and store_name is not null
       and store_city is not null
