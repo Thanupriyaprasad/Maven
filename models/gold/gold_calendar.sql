@@ -2,7 +2,7 @@ with base as (
     select
         cast(date as date) as date_actual
     from {{ ref('silver_calendar') }}
-    -- or use {{ source('MAVENDB', 'calendar') }} if not using a silver layer
+    
 ),
 
 enriched as (
