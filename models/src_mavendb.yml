@@ -40,4 +40,28 @@ models:
         tests:
           - not_null
       - name: product_profit
-        description: "Profit per product (price - cost)"     
+        description: "Profit per product (price - cost)"  
+
+
+
+
+
+  - name: silver_dictionary
+    description: "Cleaned and enriched data dictionary table"
+    columns:
+      - name: table_name
+        description: "Name of the table"
+        tests:
+          - not_null
+      - name: field_name
+        description: "Name of the field/column"
+        tests:
+          - not_null
+      - name: description
+        description: "Description of the field"
+      - name: table_field_key
+        description: "Unique key for each table/field combination"
+        tests:
+          - unique
+      - name: has_description
+        description: "1 if a description is present, 0 otherwise"   
