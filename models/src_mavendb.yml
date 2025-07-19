@@ -64,4 +64,62 @@ models:
         tests:
           - unique
       - name: has_description
-        description: "1 if a description is present, 0 otherwise"   
+        description: "1 if a description is present, 0 otherwise" 
+
+  - name:  silver_sales
+    description: "Cleaned and deduplicated sales data with additional date fields"
+    columns:
+    - name: sale_id
+      description: "Unique sale transaction ID"
+      tests:
+        - unique
+        - not_null
+    - name: sale_date
+      description: "Date of sale"
+      tests:
+        - not_null
+    - name: store_id
+      description: "Store identifier"
+      tests:
+        - not_null
+    - name: product_id
+      description: "Product identifier"
+      tests:
+        - not_null
+    - name: units
+      description: "Number of units sold"
+      tests:
+        - not_null
+    - name: year
+      description: "Year of sale"
+    - name: month
+      description: "Month of sale"  
+
+  - name: silver_stores
+    description: "Cleaned and enriched store data for analytics"
+    columns:
+    - name: store_id
+      description: "Unique store identifier"
+      tests:
+        - unique
+        - not_null
+    - name: store_name
+      description: "Name of the store"
+      tests:
+        - not_null
+    - name: store_city
+      description: "City where the store is located"
+      tests:
+        - not_null
+    - name: store_location
+      description: "Location type of the store (e.g., Downtown, Commercial, Residential)"
+      tests:
+        - not_null
+    - name: store_open_date
+      description: "Date the store opened"
+      tests:
+        - not_null
+    - name: open_year
+      description: "Year the store opened"
+    - name: open_month
+      description: "Month the store opened"
