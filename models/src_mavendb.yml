@@ -40,4 +40,234 @@ models:
         tests:
           - not_null
       - name: product_profit
-        description: "Profit per product (price - cost)"     
+        description: "Profit per product (price - cost)"  
+
+
+
+
+
+  - name: silver_dictionary
+    description: "Cleaned and enriched data dictionary table"
+    columns:
+      - name: table_name
+        description: "Name of the table"
+        tests:
+          - not_null
+      - name: field_name
+        description: "Name of the field/column"
+        tests:
+          - not_null
+      - name: description
+        description: "Description of the field"
+      - name: table_field_key
+        description: "Unique key for each table/field combination"
+        tests:
+          - unique
+      - name: has_description
+        description: "1 if a description is present, 0 otherwise" 
+
+  - name:  silver_sales
+    description: "Cleaned and deduplicated sales data with additional date fields"
+    columns:
+    - name: sale_id
+      description: "Unique sale transaction ID"
+      tests:
+        - unique
+        - not_null
+    - name: sale_date
+      description: "Date of sale"
+      tests:
+        - not_null
+    - name: store_id
+      description: "Store identifier"
+      tests:
+        - not_null
+    - name: product_id
+      description: "Product identifier"
+      tests:
+        - not_null
+    - name: units
+      description: "Number of units sold"
+      tests:
+        - not_null
+    - name: year
+      description: "Year of sale"
+    - name: month
+      description: "Month of sale"  
+
+  - name: silver_stores
+    description: "Cleaned and enriched store data for analytics"
+    columns:
+    - name: store_id
+      description: "Unique store identifier"
+      tests:
+        - unique
+        - not_null
+    - name: store_name
+      description: "Name of the store"
+      tests:
+        - not_null
+    - name: store_city
+      description: "City where the store is located"
+      tests:
+        - not_null
+    - name: store_location
+      description: "Location type of the store (e.g., Downtown, Commercial, Residential)"
+      tests:
+        - not_null
+    - name: store_open_date
+      description: "Date the store opened"
+      tests:
+        - not_null
+    - name: open_year
+      description: "Year the store opened"
+    - name: open_month
+      description: "Month the store opened" 
+
+  - name: gold_calendar
+    description: "Enriched calendar/date dimension for analytics"
+    columns:
+    - name: date_actual
+      description: "The actual date"
+      tests:
+        - unique
+        - not_null
+    - name: year
+      description: "Year number"
+    - name: month
+      description: "Month number (1-12)"
+    - name: day
+      description: "Day of month (1-31)"
+    - name: quarter
+      description: "Quarter of year (1-4)"
+    - name: week_of_year
+      description: "ISO week number"
+    - name: day_of_week
+      description: "Day of week (1=Monday, 7=Sunday)"
+    - name: day_name
+      description: "Full name of the day (e.g., Monday)"
+    - name: month_name
+      description: "Full name of the month (e.g., January)"
+    - name: is_weekend
+      description: "1 if weekend, 0 otherwise"
+    - name: is_month_start
+      description: "1 if first day of month, 0 otherwise"
+    - name: is_month_end
+      description: "1 if last day of month, 0 otherwise"
+
+  - name: gold_dictionary
+    description: "Analytics-ready data dictionary with metadata completeness stats"
+    columns:
+    - name: table_name
+      description: "Name of the table"
+      tests:
+        - not_null
+    - name: field_name
+      description: "Name of the field/column"
+      tests:
+        - not_null
+    - name: description
+      description: "Description of the field"
+    - name: table_field_key
+      description: "Unique key for each table/field combination"
+      tests:
+        - not_null
+    - name: has_description
+      description: "1 if a description is present, 0 otherwise"
+    - name: total_fields
+      description: "Total number of fields in the table"
+    - name: fields_with_description
+      description: "Number of fields in the table that have a description"
+    - name: pct_described
+      description: "Percentage of fields in the table with a description"
+
+  - name: gold_inventory
+    description: "Gold inventory model with stock analytics and rankings"
+    columns:
+    - name: store_id
+      description: "Store identifier"
+    - name: product_id
+      description: "Product identifier"
+    - name: stock_on_hand
+      description: "Units of product in stock at the store"
+    - name: is_out_of_stock
+      description: "1 if product is out of stock at the store, 0 otherwise"
+    - name: total_stock_in_store
+      description: "Sum of all stock for all products in this store"
+    - name: total_stock_for_product
+      description: "Sum of all stock for this product across all stores"
+    - name: product_stock_rank_in_store
+      description: "Rank of the product by stock level within the store (1=most stock)"
+
+  - name: gold_products
+    description: "Enriched product analytics model with sales, inventory, and business classifications"
+    columns:
+    - name: product_id
+      description: "Product identifier"
+    - name: product_name
+      description: "Product name"
+    - name: product_category
+      description: "Product category"
+    - name: product_price
+      description: "Selling price of the product"
+    - name: product_cost
+      description: "Cost to acquire or produce the product"
+    - name: product_profit
+      description: "Profit per unit (price - cost)"
+    - name: total_units_sold
+      description: "Total number of units sold"
+    - name: total_sales_revenue
+      description: "Total sales revenue for the product"
+    - name: total_stock_on_hand
+      description: "Current inventory for the product across all stores"
+    - name: product_sales_class
+      description: "Business classification: Top Seller, Standard, Slow Mover"
+
+  - name: gold_sales
+    description: "Aggregated monthly sales metrics by store and product"
+    columns:
+    - name: store_id
+      description: "Store identifier"
+    - name: product_id
+      description: "Product identifier"
+    - name: year
+      description: "Year of the sale"
+    - name: month
+      description: "Month of the sale"
+    - name: total_units_sold
+      description: "Total units sold in the month"
+    - name: total_sales_revenue
+      description: "Total sales revenue in the month"
+    - name: avg_product_price
+      description: "Average product price during the month"
+
+  - name: gold_stores
+    description: "Enriched store analytics model with age, classification, and summary metrics"
+    columns:
+    - name: store_id
+      description: "Unique store identifier"
+      tests:
+        - unique
+        - not_null
+    - name: store_name
+      description: "Store name"
+    - name: store_city
+      description: "City of the store"
+    - name: store_location
+      description: "Store location type"
+    - name: store_open_date
+      description: "Date store opened"
+    - name: open_year
+      description: "Year store opened"
+    - name: open_month
+      description: "Month store opened"
+    - name: store_age_years
+      description: "Store age in years"
+    - name: store_age_months
+      description: "Store age in months"
+    - name: store_age_category
+      description: "Store classification: Legacy, New, Standard"
+    - name: stores_in_city
+      description: "Number of stores in the same city"
+    - name: stores_in_location
+      description: "Number of stores in the same location type"

@@ -1,4 +1,4 @@
--- models/silver/silver_products.sql
+
 
 with deduped as (
     select
@@ -12,7 +12,7 @@ cleaned as (
         product_id,
         product_name,
         product_category,
-        -- Remove dollar sign, then cast to decimal
+        
         cast(replace(product_cost, '$', '') as decimal(10,2)) as product_cost,
         cast(replace(product_price, '$', '') as decimal(10,2)) as product_price
     from deduped
